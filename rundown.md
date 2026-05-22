@@ -38,37 +38,42 @@ I want to mix n match. - Web MCP
 
 ## Introduction
 
-Do we even need an interface?
+"UI Is dead"
+"Chatbox is the final interface"
+"just give me a skill bro"
+"Generative UI is the future"
+"AI will soon stream only video as a UI"
 
-- In some cases, I don't want a UI. - Handbrake to ffmpeg
+Do we even need an user interfaces any more?
+Well, no. But the way we interact with services is certainly changing.
 
-- in some cases I like to use your UI, but I want a bit more control - "freshbooks - Categorize all the expenses from Starlink and Bell as communication expesnses. Make sure to log that price as including HST."
+## Let's look at some cases
 
-- In some cases I want a better UI - everyone is vibe coding their own better UI
+- In some cases, I don't want a UI at all
+
+Example: I switched from Handbrake to ffmpeg because typing "make this video into a 1080p mp4" is easier than checkbox mess.
+
+- In some cases I want to use my voice [unsure of this point]
+
+- in some cases I like to use your UI, but I also hate how much shit work it makes me do. I want a bit more control
+  "freshbooks - Categorize all the expenses from Starlink and Bell as communication expesnses. Make sure to log that price as including HST."
+
+- In some cases, I want the UI in my AI
+  - ChatGPT Groceries?
+  - Starbucks
+
+- In some cases I want a UI tailored to my needs
+
+everyone is vibe coding their own better UI that meets their exact use case of the software
 
 - In some cases I want my apps to kiss
   - Explosion of skills
   - MCP tool calls
   - This is such a huge use right now
 
-- In some cases I just want to customize my UI
+Example: I have meeting notes in Notion, 2 gmail accounts emails, tickets in linear and app telementry in Sentry.
 
-- In some cases I just want what I want to see
-  - Dynamic UI. GenUI.
-
-- In some cases, I want the UI in context to what I'm already doing.
-  - ChatGPT Groceries?
-
-Can an LLM make a better UI?
-Can I make a better UI for my bank?
-
-So we have all these different usecases right now.
-
-All while we have people saying "Chat is the final interface". OK, but ordering starbucks here sucks.
-
-Others are saying that the UI will be totally generative.
-
-All while I'm wondering things like will the airline simply want to be distilled down into a utility? Have you tried to book a flight recently? Seat selection upsells, scare-tactics for insurance and re-booking fees. As a user I want these things, but I doubt businesses will totally buy in. [maybe put this at the end. Mention the API wars]
+## So we have all these different use cases right now.
 
 So, how do we as developers Implement these interfaces? Let's take a look at the options right now.
 
@@ -156,6 +161,12 @@ Lego blocks of components alone don't make a good experience.
 
 Restrictive + limited options lead to crappy UIs
 Full blown vibe coding UIs are also crappy
+
+<!-- Can an LLM make a better UI?
+Can I make a better UI for my bank?
+Others are saying that the UI will be totally generative. -->
+
+All while I'm wondering things like will the airline simply want to be distilled down into a utility? Have you tried to book a flight recently? Seat selection upsells, scare-tactics for insurance and re-booking fees. As a user I want these things, but I doubt businesses will totally buy in. [maybe put this at the end. Mention the API wars]
 
 ## The Ideas
 
