@@ -1,0 +1,180 @@
+/* One-off styles for the Agentic Interfaces talk */
+
+/* Orbit layout: center heading with items arranged around it */
+article:has(> .orbit) {
+  --display: block;
+  padding: 0;
+}
+
+.orbit {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.orbit-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  width: 500px;
+  text-align: center;
+}
+
+.orbit-item {
+  --count: 6;
+  --radius: 420px;
+  --angle: calc(360deg / var(--count) * var(--i) - 90deg);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translate(calc(cos(var(--angle)) * var(--radius)),
+      calc(sin(var(--angle)) * var(--radius)));
+  font-family: "geoform", "geist mono", monospace;
+  font-size: 28px;
+  font-weight: 500;
+  color: white;
+  -webkit-text-stroke: 3px black;
+  paint-order: stroke fill;
+  text-shadow: 0 0 40px rgba(181, 255, 1, 0.3);
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 14px 24px;
+  border-radius: 12px;
+  border: 1px solid rgba(181, 255, 1, 0.15);
+}
+
+article:has(> .scatter) {
+  padding: 0;
+  --display: block;
+}
+
+.scatter {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.scatter img {
+  position: absolute;
+  width: 35%;
+  max-height: 45%;
+  object-fit: contain;
+  border: 4px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.scatter img:nth-child(1) {
+  top: 2%;
+  left: 3%;
+  rotate: -4deg;
+}
+
+.scatter img:nth-child(2) {
+  top: 5%;
+  right: 5%;
+  rotate: 3deg;
+}
+
+.scatter img:nth-child(3) {
+  bottom: 8%;
+  left: 8%;
+  rotate: 2deg;
+}
+
+.scatter img:nth-child(4) {
+  bottom: 5%;
+  right: 3%;
+  rotate: -3deg;
+}
+
+.scatter img:nth-child(5) {
+  top: 28%;
+  left: 32%;
+  rotate: 1deg;
+  z-index: 2;
+}
+
+/* Code blocks on slides */
+article pre {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(181, 255, 1, 0.2);
+  border-radius: 12px;
+  padding: 30px 40px;
+  overflow-x: auto;
+  max-height: 80%;
+}
+
+article pre code {
+  font-family: "geist mono", "Fira Code", monospace;
+  font-size: 28px;
+  line-height: 1.5;
+  color: #e0e0e0;
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+  paint-order: normal;
+  white-space: pre;
+  tab-size: 2;
+}
+
+article pre code .kw {
+  color: #c792ea;
+}
+
+article pre code .str {
+  color: #c3e88d;
+}
+
+article pre code .fn {
+  color: #82aaff;
+}
+
+article pre code .cm {
+  color: #676e95;
+}
+
+article pre code .tag {
+  color: #f07178;
+}
+
+article pre code .attr {
+  color: #ffcb6b;
+}
+
+article pre code .val {
+  color: #c3e88d;
+}
+
+article:has(> iframe:only-child) {
+  padding: 0;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+article:has(> iframe)>iframe {
+  place-self: stretch;
+  border: none;
+  background: transparent;
+  min-height: 0;
+}
+
+article:has(> :is(h1, h2, h3, h4, h5, h6) + iframe) {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+}
+
+article blockquote {
+  border-left: 8px solid var(--green);
+  padding: 20px 40px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 0 12px 12px 0;
+}
+
+article blockquote p {
+  font-size: 42px;
+  font-style: italic;
+}

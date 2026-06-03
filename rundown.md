@@ -48,6 +48,8 @@ to declarative, composing UIs from building blocks (A2UI, JSON Render)
 
 ## Links + Tech
 
+https://mcp-b.ai/#demo
+https://github.com/modelcontextprotocol/ext-apps/issues/35
 https://www.copilotkit.ai/ag-ui-and-a2ui
 https://a2ui.org/#landscape-architect-demo
 https://modelcontextprotocol.io/docs/learn/server-concepts#resources
@@ -62,3 +64,6 @@ https://github.com/standardagents/arrow-js
 Open-JSON-UI
 https://docs.copilotkit.ai/learn/a2a-protocol
 https://x.com/ataiiam/status/2057810576814768425
+https://www.youtube.com/watch?v=o-zkvb0iFDQ
+https://apps.extensions.modelcontextprotocol.io/api/
+https://www.npmjs.com/package/@mcp-b/webmcp-local-relay

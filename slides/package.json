@@ -1,0 +1,20 @@
+{
+  "name": "agentic-interfaces",
+  "version": "1.0.0",
+  "description": "",
+  "main": "slides.js",
+  "type": "module",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "start": "vite . --port 6969",
+    "build": "vite build --out-dir docs --base=/agentic-interfaces/"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "postcss-nesting": "^13.0.1",
+    "vite": "^6.2.3"
+  }
+}

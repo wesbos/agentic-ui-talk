@@ -1,0 +1,400 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script type="module" src="./slides.js"></script>
+    <link href="./styles.css" rel="stylesheet" type="text/css" />
+    <link href="./talk.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="https://fav.farm/👨‍💻" />
+    <title>Agentic Interfaces: Tools, Skills, Generative UI and WebMCP</title>
+    <!-- <script type="module" src="./spanran-wrap.ts"></script> -->
+    <script type="module" src="./autoplay.ts"></script>
+  </head>
+
+  <body>
+    <div class="overlay"></div>
+    <section class="slides layout-regular template-default">
+      <article style="--display: block">
+        <h1 style="font-size: 140px">Agentic Interfaces</h1>
+        <p>Tools, Skills, Generative UI and WebMCP</p>
+        <p>Wes Bos × @wesbos × wesbos.com</p>
+      </article>
+
+      <article>
+        <h2 style="font-size: 80px">What People Are Saying</h2>
+        <ul class="build">
+          <li>"UI is dead"</li>
+          <li>"Chat is the final interface"</li>
+          <li>"Just give me a skill, bro"</li>
+          <li>"Generative UI is the future"</li>
+          <li>"AI will soon stream only video as a UI"</li>
+        </ul>
+      </article>
+
+      <article>
+        <h1 style="font-size: 150px">
+          Do we even need user interfaces anymore?
+        </h1>
+      </article>
+
+      <article>
+        <h2>Well, no</h2>
+        <p>But the way we interact with the web is certainly changing.</p>
+      </article>
+
+      <article>
+        <h1 style="font-size: 180px">Let's look at some cases</h1>
+      </article>
+
+      <article>
+        <h2 style="font-size: 90px">Sometimes I don't want a UI at all</h2>
+        <p>
+          I switched from HandBrake to ffmpeg because typing "make this video
+          into a 1080p mp4" is easier than a checkbox mess.
+        </p>
+      </article>
+
+      <article>
+        <img src="./ss/handbrake.png" alt="HandBrake UI" />
+      </article>
+
+      <article>
+        <img src="./ss/claude-p.png" alt="Claude -p terminal" />
+      </article>
+
+      <article>
+        <h2 style="font-size: 90px">Sometimes I want to use my voice</h2>
+        <img
+          src="./images/speech-bubbles.png"
+          alt="Hey Google turn my lights on — Done."
+        />
+      </article>
+
+      <article>
+        <h2 style="font-size: 70px">
+          Sometimes I like your UI, but I hate the busywork
+        </h2>
+        <iframe src="./demos/freshbooks.html" allowtransparency="true"></iframe>
+      </article>
+
+      <article>
+        <h2>I want the UI in my AI</h2>
+        <video src="/videos/car-engine.mp4" autoplay muted loop></video>
+      </article>
+
+      <article>
+        <h2 style="font-size: 90px">I want a UI tailored to my needs</h2>
+        <div class="scatter">
+          <img src="./ss/vibes/vibe-1.png" alt="" />
+          <img src="./ss/vibes/vibe-2.png" alt="" />
+          <img src="./ss/vibes/vibe-3.png" alt="" />
+          <img src="./ss/vibes/vibe-4.png" alt="" />
+          <img src="./ss/vibes/vibe-5.png" alt="" />
+        </div>
+      </article>
+
+      <article>
+        <h2 style="font-size: 100px">I want my apps to kiss</h2>
+        <ul class="build">
+          <li>Explosion of skills</li>
+          <li>MCP tool calls</li>
+          <li>This is such a huge use right now</li>
+        </ul>
+      </article>
+
+      <article>
+        <iframe
+          src="./demos/apps-integration.html"
+          allowtransparency="true"
+        ></iframe>
+      </article>
+
+      <article>
+        <h2 style="font-size: 100px">So we have all these use cases</h2>
+        <p>How do we as developers implement these interfaces?</p>
+      </article>
+
+      <article>
+        <h2>1. Controlled / Static UI</h2>
+        <p>
+          Here is a tool call. Instead of returning raw data, it will also
+          return the UI.
+        </p>
+      </article>
+
+      <article>
+        <h2>2. Declarative UI</h2>
+        <p>
+          You have a whole bag of possible components. You let the agent figure
+          out which ones to use. Return a JSON spec, reconcile against
+          components. Implement in web, native, whatever.
+        </p>
+      </article>
+
+      <article>
+        <h2 style="font-size: 100px">3. Fully Generative UI</h2>
+        <p>Let the AI just generate it all. Give it a place to run code.</p>
+      </article>
+
+      <article>
+        <h2>Demo of MCP Apps</h2>
+      </article>
+
+      <article>
+        <h2 style="font-size: 80px">Code Mode!</h2>
+        <p>
+          We're seeing this with "Code Mode" right now. Instead of only giving
+          the agent tools, what if we also gave it a spot where it could just
+          run any code?
+        </p>
+      </article>
+
+      <article>
+        <h2>Demo of Code Mode</h2>
+      </article>
+
+      <article>
+        <h1 style="font-size: 150px">This isn't just about chat</h1>
+      </article>
+
+      <!-- <article>
+        <video src="/videos/car-engine.mp4" autoplay muted loop></video>
+      </article> -->
+
+      <article>
+        <h2 style="font-size: 90px">Most interfaces just suck</h2>
+        <video src="/videos/loblaws.mp4" autoplay muted loop></video>
+      </article>
+
+      <article>
+        <h2>Demo of Starbuck's</h2>
+      </article>
+
+      <article>
+        <h1 style="font-size: 120px">
+          <small>this is also about</small><br />
+          Adaptive + Reactive Interfaces
+        </h1>
+      </article>
+
+      <article>
+        <h1>Smart Home</h1>
+      </article>
+
+      <article>
+        <div class="side-by-side even">
+          <div>
+            <h3>No UI</h3>
+            <p class="center">
+              My lights should just turn on when it thinks they should.
+            </p>
+          </div>
+          <div>
+            <h3>Voice UI</h3>
+            <p class="center">
+              In some cases I just want to yell at my smart speaker.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <div class="orbit">
+          <h2 class="orbit-center">My smart home knows me</h2>
+          <div class="orbit-item" style="--i: 0">
+            Camera detected motion 5 times
+          </div>
+          <div class="orbit-item" style="--i: 1">
+            Humidity spiked last night
+          </div>
+          <div class="orbit-item" style="--i: 2">
+            I usually check weather at 8am
+          </div>
+          <div class="orbit-item" style="--i: 3">No calendar events today</div>
+          <div class="orbit-item" style="--i: 4">
+            I turn my office lights on at 9am
+          </div>
+          <div class="orbit-item" style="--i: 5">I'm not currently home</div>
+        </div>
+      </article>
+
+      <article>
+        <h2>why does my dashboard look like this?</h2>
+        <img src="./ss/home-assistant.png" alt="Home Assistant dashboard" />
+      </article>
+
+      <article>
+        <h2 style="font-size: 80px">
+          Why does TikTok know me better than my smart home?
+        </h2>
+        <!-- <p>
+          TikTok knows I like rope swing fails on Friday nights, but I need to
+          spend hours categorizing 67 light bulbs and switches in my house?
+        </p> -->
+      </article>
+
+      <article>
+        <img
+          src="./ss/smart-home-bad-ui.png"
+          alt="Generic smart home dashboard"
+        />
+      </article>
+
+      <article>
+        <img
+          src="./ss/smart-home-adaptive-ui.png"
+          alt="Adaptive smart home dashboard"
+        />
+      </article>
+
+      <article>
+        <img
+          src="./ss/smart-home-adaptive-ui-v2.png"
+          alt="Adaptive smart home dashboard — complex layout"
+        />
+      </article>
+
+      <!-- <article>
+        <h1 style="font-size: 140px">
+          Take this all and whip up a dashboard for me
+        </h1>
+      </article> -->
+
+      <!-- <article>
+        <p>Displaying UI → Using your app</p>
+      </article> -->
+
+      <article>
+        <h2>WebMCP</h2>
+        <p>
+          You expose your existing website functionality using the existing
+          semantics of the web — declarative HTML API and imperative JS API.
+        </p>
+      </article>
+
+      <article>
+        <h2 style="font-size: 80px">Declarative — HTML</h2>
+        <pre><code>&lt;<span class="tag">form</span>
+  <span class="attr">toolname</span>=<span class="val">"add_item"</span>
+  <span class="attr">tooldescription</span>=<span class="val">"Add a grocery item to a store."</span>
+  <span class="attr">toolautosubmit</span>=<span class="val">""</span>
+&gt;
+  &lt;<span class="tag">select</span> <span class="attr">name</span>=<span class="val">"store_id"</span>
+    <span class="attr">toolparamdescription</span>=<span class="val">"Target store"</span>&gt;
+  &lt;/<span class="tag">select</span>&gt;
+  &lt;<span class="tag">input</span> <span class="attr">name</span>=<span class="val">"item_name"</span>
+    <span class="attr">toolparamdescription</span>=<span class="val">"Item name"</span> <span class="attr">required</span> /&gt;
+  &lt;<span class="tag">button</span> <span class="attr">type</span>=<span class="val">"submit"</span>&gt;Add&lt;/<span class="tag">button</span>&gt;
+&lt;/<span class="tag">form</span>&gt;</code></pre>
+      </article>
+
+      <article>
+        <h2 style="font-size: 80px">Imperative — JS</h2>
+        <pre><code><span class="fn">navigator.modelContext</span>.<span class="fn">registerTool</span>(
+  {
+    <span class="attr">name</span>: <span class="str">"get_stores"</span>,
+    <span class="attr">description</span>: <span class="str">"List stores and item counts."</span>,
+    <span class="attr">inputSchema</span>: { <span class="attr">type</span>: <span class="str">"object"</span>, <span class="attr">properties</span>: {} },
+    <span class="attr">annotations</span>: { <span class="attr">readOnlyHint</span>: <span class="kw">true</span> },
+    <span class="fn">execute</span>: () =&gt; <span class="fn">JSON.stringify</span>(stores, <span class="kw">null</span>, 2),
+  },
+  { <span class="attr">signal</span>: controller.signal },
+);</code></pre>
+      </article>
+
+      <article>
+        <h2 style="font-size: 80px">Using it</h2>
+        <pre><code><span class="cm">// Get a list of tools</span>
+<span class="kw">const</span> tools = <span class="fn">navigator.modelContextTesting</span>?.<span class="fn">listTools</span>();
+
+<span class="cm">// Run a tool (usually run by an agent)</span>
+<span class="kw">await</span> <span class="fn">navigator.modelContextTesting</span>?.<span class="fn">executeTool</span>(
+  <span class="str">"get_stores"</span>, <span class="str">"{}"</span>
+);</code></pre>
+      </article>
+
+      <article>
+        <h2 style="font-size: 80px">Why this is great</h2>
+        <ul class="build">
+          <li>
+            Uses the browser's built-in security model. Auth isn't an issue.
+          </li>
+          <li>
+            Existing websites can easily expose functionality. Often just a
+            plugin.
+          </li>
+          <li>User is in control</li>
+          <li>Not limited by sandboxing security model</li>
+        </ul>
+      </article>
+
+      <article>
+        <h1 style="font-size: 150px">Clicks n' Clankers</h1>
+        <p>
+          Have the agent do the first pass. Jump in with clicks where it
+          matters.
+        </p>
+      </article>
+
+      <article>
+        <h2>Demo of Web MCP</h2>
+      </article>
+
+      <!--
+      Removed due to time constraints
+      <article>
+        <h2>Security</h2>
+        <ul class="build">
+          <li>MCP Apps use a sandbox — iframed</li>
+          <li>Arrow JS uses a sandbox</li>
+          <li>Remote DOM (Shopify)</li>
+          <li>WebMCP uses the browser's security model</li>
+        </ul>
+      </article> -->
+
+      <article>
+        <h2 style="font-size: 80px">Things to consider</h2>
+        <ul class="build">
+          <li>Components are king</li>
+          <li>Speed and consistency are a huge factor</li>
+          <li>Balance of low power and full control is a constant battle</li>
+          <li>Abuse — we're fighting bots, but also giving them the keys</li>
+          <li>Brand consistency and UX</li>
+        </ul>
+      </article>
+
+      <article>
+        <h2 style="font-size: 80px">The power battle</h2>
+        <p>
+          Will the airline simply want to be distilled down into a utility? Seat
+          selection upsells, scare-tactics for insurance. As a user I want this,
+          but I doubt businesses will totally buy in.
+        </p>
+      </article>
+
+      <!-- <article>
+        <h2 style="font-size: 80px">Agentic UI will be about</h2>
+        <p>
+          Customizing experiences, smart defaults, suggestive UI, contextual
+          components.
+        </p>
+      </article> -->
+
+      <article>
+        <h2 style="font-size: 80px">
+          The surface area for our apps has expanded
+        </h2>
+        <p>
+          Just like when mobile and voice hit. It's on us as developers to
+          figure out which of these interfaces will work to provide delightful
+          interfaces for our users.
+        </p>
+      </article>
+
+      <article>
+        <h1>Thanks</h1>
+        <p>@wesbos</p>
+      </article>
+    </section>
+  </body>
+</html>

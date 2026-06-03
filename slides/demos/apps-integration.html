@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Apps Integration</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: transparent; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .scene {
+      position: relative;
+      width: 1800px;
+      height: 1000px;
+    }
+
+    .chat-window {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 420px;
+      background: rgba(20, 20, 30, 0.92);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.5);
+    }
+
+    .chat-header {
+      padding: 18px 24px;
+      background: rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      color: #aaa;
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .chat-header .dot {
+      width: 10px;
+      height: 10px;
+      background: #b5ff01;
+      border-radius: 50%;
+    }
+
+    .chat-body {
+      padding: 20px 24px;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chat-msg {
+      background: rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: #ccc;
+      font-size: 15px;
+      line-height: 1.4;
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    .chat-input {
+      padding: 16px 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: #555;
+      font-size: 14px;
+    }
+
+    .node {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .node-icon {
+      width: 90px;
+      height: 90px;
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+
+    .node-icon svg {
+      width: 48px;
+      height: 48px;
+    }
+
+    .node-label {
+      color: rgba(255,255,255,0.7);
+      font-size: 18px;
+      font-weight: 600;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+    }
+
+    .node-notion .node-icon { background: #fff; }
+    .node-notion .node-icon svg { fill: #000; }
+
+    .node-gmail .node-icon { background: #fff; }
+    .node-gmail .node-icon svg { fill: #EA4335; }
+
+    .node-linear .node-icon { background: #5E6AD2; }
+    .node-linear .node-icon svg { fill: #fff; }
+
+    .node-sentry .node-icon { background: #362D59; }
+    .node-sentry .node-icon svg { fill: #fff; }
+
+    .node-skills .node-icon {
+      background: #b5ff01;
+      font-size: 18px;
+      font-weight: 800;
+      color: #000;
+      letter-spacing: -0.02em;
+    }
+
+    .node-tools .node-icon {
+      background: #ff6b35;
+      font-size: 36px;
+    }
+
+    .node-mcp .node-icon {
+      background: #0ea5e9;
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0.05em;
+    }
+
+    .pulse {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #b5ff01;
+      box-shadow: 0 0 24px #b5ff01, 0 0 8px #b5ff01;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 20;
+    }
+  </style>
+</head>
+<body>
+  <div class="scene" id="scene">
+    <div class="chat-window" id="chat">
+      <div class="chat-header"><span class="dot"></span> AI Assistant</div>
+      <div class="chat-body" id="chatBody"></div>
+      <div class="chat-input">Ask anything across your apps...</div>
+    </div>
+
+    <div class="node node-notion" id="n-notion" style="left: 60px; top: 100px;">
+      <div class="node-icon">
+        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.139c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/></svg>
+      </div>
+      <span class="node-label">Notion</span>
+    </div>
+
+    <div class="node node-gmail" id="n-gmail" style="left: 480px; top: 20px;">
+      <div class="node-icon">
+        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+      </div>
+      <span class="node-label">Gmail</span>
+    </div>
+
+    <div class="node node-linear" id="n-linear" style="right: 480px; top: 20px;">
+      <div class="node-icon">
+        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2.886 4.18A11.982 11.982 0 0 1 11.99 0C18.624 0 24 5.376 24 12.009c0 3.64-1.62 6.903-4.18 9.105L2.887 4.18ZM1.817 5.626l16.556 16.556c-.524.33-1.075.62-1.65.866L.951 7.277c.247-.575.537-1.126.866-1.65ZM.322 9.163l14.515 14.515c-.71.172-1.443.282-2.195.322L0 11.358a12 12 0 0 1 .322-2.195Zm-.17 4.862 9.823 9.824a12.02 12.02 0 0 1-9.824-9.824Z"/></svg>
+      </div>
+      <span class="node-label">Linear</span>
+    </div>
+
+    <div class="node node-sentry" id="n-sentry" style="right: 60px; top: 100px;">
+      <div class="node-icon">
+        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.91 2.505c-.873-1.448-2.972-1.448-3.844 0L6.904 7.92a15.478 15.478 0 0 1 8.53 12.811h-2.221A13.301 13.301 0 0 0 5.784 9.814l-2.926 5.06a7.65 7.65 0 0 1 4.435 5.848H2.194a.365.365 0 0 1-.298-.534l1.413-2.402a5.16 5.16 0 0 0-1.614-.913L.296 19.275a2.182 2.182 0 0 0 .812 2.999 2.24 2.24 0 0 0 1.086.288h6.983a9.322 9.322 0 0 0-3.845-8.318l1.11-1.922a11.47 11.47 0 0 1 4.95 10.24h5.915a17.242 17.242 0 0 0-7.885-15.28l2.244-3.845a.37.37 0 0 1 .504-.13c.255.14 9.75 16.708 9.928 16.9a.365.365 0 0 1-.327.543h-2.287c.029.612.029 1.223 0 1.831h2.297a2.206 2.206 0 0 0 1.922-3.31z"/></svg>
+      </div>
+      <span class="node-label">Sentry</span>
+    </div>
+
+    <div class="node node-skills" id="n-skills" style="left: 60px; bottom: 100px;">
+      <div class="node-icon">Skills</div>
+      <span class="node-label">Skills</span>
+    </div>
+
+    <div class="node node-tools" id="n-tools" style="left: 50%; bottom: 20px; transform: translateX(-50%);">
+      <div class="node-icon">🔧</div>
+      <span class="node-label">Tools</span>
+    </div>
+
+    <div class="node node-mcp" id="n-mcp" style="right: 60px; bottom: 100px;">
+      <div class="node-icon">MCP</div>
+      <span class="node-label">MCP</span>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const scene = document.getElementById("scene");
+    const chat = document.getElementById("chat");
+    const chatBody = document.getElementById("chatBody");
+    const nodes = [
+      document.getElementById("n-notion"),
+      document.getElementById("n-gmail"),
+      document.getElementById("n-linear"),
+      document.getElementById("n-sentry"),
+      document.getElementById("n-skills"),
+      document.getElementById("n-tools"),
+      document.getElementById("n-mcp"),
+    ];
+
+    const messages = [
+      "Checking your meeting notes from Notion...",
+      "Found 3 unread emails from clients.",
+      "2 tickets assigned to you are overdue.",
+      "Error spike detected in checkout flow.",
+      "Running diagnostics skill...",
+      "Formatting results with markdown tool...",
+      "Syncing context via MCP...",
+    ];
+
+    function getCenterOf(el) {
+      const r = el.getBoundingClientRect();
+      const sr = scene.getBoundingClientRect();
+      return {
+        x: r.left - sr.left + r.width / 2,
+        y: r.top - sr.top + r.height / 2,
+      };
+    }
+
+    function chatCenter() {
+      const r = chat.getBoundingClientRect();
+      const sr = scene.getBoundingClientRect();
+      return {
+        x: r.left - sr.left + r.width / 2,
+        y: r.top - sr.top + r.height / 2,
+      };
+    }
+
+    function firePulse(node, msg) {
+      const start = getCenterOf(node.querySelector(".node-icon"));
+      const end = chatCenter();
+
+      const dot = document.createElement("div");
+      dot.className = "pulse";
+      scene.appendChild(dot);
+
+      const msgEl = document.createElement("div");
+      msgEl.className = "chat-msg";
+      msgEl.textContent = msg;
+      chatBody.appendChild(msgEl);
+
+      return gsap.timeline()
+        .set(dot, { left: start.x - 7, top: start.y - 7, opacity: 1, scale: 1 })
+        .to(dot, { left: end.x - 7, top: end.y - 7, duration: 0.5, ease: "power2.in" })
+        .to(dot, { opacity: 0, scale: 2.5, duration: 0.15 }, "-=0.05")
+        .to(msgEl, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, "-=0.1")
+        .add(() => dot.remove());
+    }
+
+    function resetChat() {
+      chatBody.innerHTML = "";
+    }
+
+    function runLoop() {
+      resetChat();
+      const tl = gsap.timeline({
+        onComplete() {
+          gsap.delayedCall(1.5, runLoop);
+        }
+      });
+
+      nodes.forEach((node, i) => {
+        tl.add(firePulse(node, messages[i]), i * 0.7);
+      });
+
+      tl.to({}, { duration: 1 });
+      tl.to(".chat-msg", { opacity: 0, duration: 0.4, stagger: 0.05 });
+    }
+
+    runLoop();
+  </script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreshBooks — Expenses</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f5;
+      color: #222;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .frame {
+      position: relative;
+      width: 780px;
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .prompt {
+      padding: 16px 20px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #444;
+      background: #fafafa;
+      border-bottom: 1px solid #eee;
+      min-height: 52px;
+    }
+
+    .prompt-prefix {
+      color: #999;
+    }
+
+    .prompt strong {
+      color: #111;
+    }
+
+    .typing-caret {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: #333;
+      margin-left: 1px;
+      vertical-align: text-bottom;
+      transform: translateY(1px);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th {
+      text-align: left;
+      padding: 10px 20px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #999;
+      border-bottom: 1px solid #eee;
+    }
+
+    th.amount { text-align: right; }
+
+    td {
+      padding: 12px 20px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    td.amount {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    tr.is-selected {
+      background: #f6faf7;
+    }
+
+    .check {
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid #ccc;
+      border-radius: 3px;
+      display: inline-block;
+      vertical-align: middle;
+      background: #fff;
+      transform-origin: center;
+    }
+
+    tr.is-selected .check {
+      background: #3d9a56;
+      border-color: #3d9a56;
+      position: relative;
+    }
+
+    tr.is-selected .check::after {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 1px;
+      width: 5px;
+      height: 9px;
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      opacity: 0;
+    }
+
+    tr.is-selected .check.is-checked::after {
+      opacity: 1;
+    }
+
+    .cat {
+      color: #888;
+    }
+
+    tr.is-selected .cat {
+      color: #3d9a56;
+      font-weight: 500;
+    }
+
+    .hst {
+      display: block;
+      font-size: 11px;
+      color: #aaa;
+      font-weight: 400;
+      opacity: 0;
+    }
+
+    tr.is-selected .hst {
+      color: #6aaa7a;
+      opacity: 1;
+    }
+
+    /* Oversized pointer */
+    .pointer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 56px;
+      height: 56px;
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0;
+      transform-origin: 2px 2px;
+      filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.18));
+    }
+
+    .pointer svg {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame" id="frame">
+    <p class="prompt">
+      <span class="prompt-prefix">&gt; </span><span class="prompt-typed"></span><span class="typing-caret"></span>
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:40px"></th>
+          <th>Vendor</th>
+          <th>Date</th>
+          <th>Category</th>
+          <th class="amount">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-select>
+          <td><span class="check"></span></td>
+          <td>Starlink Internet</td>
+          <td>Apr 12, 2026</td>
+          <td class="cat">—</td>
+          <td class="amount">$158.20<span class="hst">incl. HST</span></td>
+        </tr>
+        <tr data-select>
+          <td><span class="check"></span></td>
+          <td>Bell Mobility</td>
+          <td>Apr 8, 2026</td>
+          <td class="cat">—</td>
+          <td class="amount">$142.37<span class="hst">incl. HST</span></td>
+        </tr>
+        <tr>
+          <td><span class="check"></span></td>
+          <td>Amazon.ca</td>
+          <td>Apr 6, 2026</td>
+          <td class="cat">Office Supplies</td>
+          <td class="amount">$67.79</td>
+        </tr>
+        <tr data-select>
+          <td><span class="check"></span></td>
+          <td>Starlink Internet</td>
+          <td>Mar 12, 2026</td>
+          <td class="cat">—</td>
+          <td class="amount">$158.20<span class="hst">incl. HST</span></td>
+        </tr>
+        <tr data-select>
+          <td><span class="check"></span></td>
+          <td>Bell Business Internet</td>
+          <td>Mar 1, 2026</td>
+          <td class="cat">—</td>
+          <td class="amount">$388.55<span class="hst">incl. HST</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pointer" id="pointer" aria-hidden="true">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 2L4 26L11 19L16 30L20 28L15 17L26 17L4 2Z" fill="#fff" stroke="#111" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    const frame = document.getElementById("frame");
+    const typed = document.querySelector(".prompt-typed");
+    const typingCaret = document.querySelector(".typing-caret");
+    const pointer = document.getElementById("pointer");
+    const selectRows = [...document.querySelectorAll("tr[data-select]")];
+
+    const plainText =
+      "FreshBooks — Categorize all the expenses from Starlink and Bell as communication expenses. Make sure to log that price as including HST.";
+
+    const finalHTML =
+      "<strong>FreshBooks</strong> — Categorize all the expenses from Starlink and Bell as communication expenses. Make sure to log that price as including HST.";
+
+    function checkCenter(check) {
+      const cr = check.getBoundingClientRect();
+      const fr = frame.getBoundingClientRect();
+      return {
+        x: cr.left - fr.left + cr.width / 2 - 4,
+        y: cr.top - fr.top + cr.height / 2 - 2,
+      };
+    }
+
+    function selectRow(row) {
+      row.classList.add("is-selected");
+      const check = row.querySelector(".check");
+      const cat = row.querySelector(".cat");
+      check.classList.add("is-checked");
+      cat.textContent = "Communication";
+    }
+
+    function clickCheckbox(row) {
+      const check = row.querySelector(".check");
+      return gsap.timeline()
+        .to(pointer, { scale: 0.82, duration: 0.08, ease: "power2.in" })
+        .to(check, { scale: 0.75, duration: 0.08, ease: "power2.in" }, "<")
+        .add(() => selectRow(row))
+        .to(pointer, { scale: 1, duration: 0.12, ease: "power2.out" })
+        .to(check, { scale: 1, duration: 0.15, ease: "back.out(2)" }, "<");
+    }
+
+    function movePointerTo(pos, duration = 0.55) {
+      return gsap.to(pointer, {
+        x: pos.x,
+        y: pos.y,
+        duration,
+        ease: "power2.inOut",
+      });
+    }
+
+    // Blink typing caret
+    gsap.to(typingCaret, {
+      opacity: 0,
+      duration: 0.45,
+      repeat: -1,
+      yoyo: true,
+      ease: "steps(1)",
+    });
+
+    const tl = gsap.timeline({ delay: 0.4 });
+
+    // Type prompt
+    const typeState = { chars: 0 };
+    tl.to(typeState, {
+      chars: plainText.length,
+      duration: plainText.length * 0.028,
+      ease: "none",
+      onUpdate() {
+        typed.textContent = plainText.slice(0, Math.round(typeState.chars));
+      },
+      onComplete() {
+        typed.innerHTML = finalHTML;
+      },
+    });
+
+    // Brief pause, hide typing caret
+    tl.to(typingCaret, { opacity: 0, duration: 0.15 }, "+=0.35");
+    tl.set(typingCaret, { display: "none" });
+
+    // Show oversized pointer off-screen then bring in
+    tl.set(pointer, { opacity: 1, x: -40, y: 80 });
+    tl.fromTo(pointer, { scale: 0.6 }, { scale: 1, duration: 0.25, ease: "back.out(1.4)" });
+
+    // Click each Starlink / Bell row
+    selectRows.forEach((row, i) => {
+      const check = row.querySelector(".check");
+      const pos = () => checkCenter(check);
+
+      if (i === 0) {
+        tl.add(movePointerTo(pos(), 0.7));
+      } else {
+        tl.add(movePointerTo(pos(), 0.5));
+      }
+
+      tl.add(clickCheckbox(row), "-=0.05");
+      tl.to({}, { duration: 0.12 }); // tiny beat between clicks
+    });
+
+    // Settle pointer
+    tl.to(pointer, { opacity: 0.6, duration: 0.4, delay: 0.3 });
+  </script>
+</body>
+</html>
