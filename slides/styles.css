@@ -1,4 +1,19 @@
 @import "_deps.css";
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..500&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap");
+
+:root {
+  /* Editorial paper theme */
+  --paper: #f6f1e7;
+  --paper-2: #fffdf8;
+  --ink: #1a1714;
+  --ink-soft: #5b534a;
+  --rule: rgba(26, 23, 20, 0.22);
+  --accent: #b06a35;
+  --accent-soft: #e7cf94;
+  --serif-display: "Fraunces", "Georgia", "Times New Roman", serif;
+  --serif-text: "Newsreader", "Georgia", "Times New Roman", serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
 
 :root {
   --color1: #ff00fa;
@@ -39,8 +54,12 @@
 }
 
 mark {
-  background: var(--green);
+  background: var(--accent-soft);
+  color: var(--ink);
   -webkit-text-stroke: 0;
+  text-shadow: none;
+  padding: 0 0.08em;
+  box-decoration-break: clone;
 }
 
 span.word {
@@ -79,16 +98,9 @@ span.letter {
 }
 
 body {
-  color: var(--color-vanilla);
-  /* background: white url("./images/grunge.png"); */
-  background: white url("./images/AU-FG-Texture4-8K.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  --w: 2220px;
-  --h: 1180px;
-  /* background-size: var(--w) var(--h); */
-  background-size: cover;
-  font-family: "swell", "Inter", sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--serif-text);
   overflow: hidden;
 }
 
@@ -112,65 +124,75 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 900;
-  text-transform: uppercase;
-  line-height: 1;
+  font-family: var(--serif-display);
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 120;
+  font-weight: 540;
+  line-height: 1.03;
+  letter-spacing: -0.018em;
   position: relative;
   z-index: 2;
   text-wrap: balance;
-  letter-spacing: 0.05em;
-  color: var(--green);
-  paint-order: stroke fill;
+  color: var(--ink);
   display: inline-block;
-  --stroke: hsla(from var(--color-black) h s calc(l - 5) / 1);
-  -webkit-text-stroke: 10px var(--color-black);
-  --shadow: rgba(0, 0, 0, 1);
-  mix-blend-mode: multiply;
-  /* filter: drop-shadow(0px 10px 9px var(--shadow)); */
-  /* animation: glow 1s infinite alternate; */
-  text-shadow: 0 0 2px black, 0px 0 var(--glow) var(--green);
-  &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-image: url("./images/grunge.png");
-    height: 100%;
-    z-index: 2;
-    mix-blend-mode: multiply;
-    opacity: 0.5;
-    display: none;
-  }
+}
+
+h1 small,
+h2 small,
+h3 small {
+  display: block;
+  font-family: var(--serif-text);
+  font-size: 0.24em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.5em;
+  line-height: 1.2;
 }
 
 p,
 li {
-  font-family: "geoform", "geist mono", monospace;
-  font-weight: 500;
-  font-size: 50px;
+  font-family: var(--serif-text);
+  font-weight: 400;
+  font-size: 46px;
+  line-height: 1.38;
   text-wrap: balance;
-  color: white;
-  text-shadow: 0px 0 90px white;
-  -webkit-text-stroke: 6px var(--color-black);
-  paint-order: stroke fill;
+  color: var(--ink);
 }
 
 p {
   margin: 20px 0;
 }
 
+/* Section label + subtitle helpers */
+.reason,
+.sub {
+  font-family: var(--serif-text);
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--accent);
+}
+.sub {
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
 h1 {
-  font-size: 250px;
-}
-h2 {
-  font-size: 120px;
-}
-h3 {
   font-size: 150px;
 }
+h2 {
+  font-size: 90px;
+}
+h3 {
+  font-size: 66px;
+}
 h4 {
-  font-size: 70px;
+  font-size: 48px;
 }
 
 img.fit {
@@ -278,9 +300,9 @@ article:has(
   </article>
 */
 article:has(> :is(h1, h2, h3, h4, h4, h5, h6):only-child) {
-  padding: 5rem;
+  padding: 6rem;
   & > * {
-    font-size: 200px;
+    font-size: 140px;
   }
 }
 
@@ -359,19 +381,9 @@ article:has(& > .side-by-side) {
   }
 }
 
+/* Texture overlay retired for the paper theme */
 .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("./images/AU-FG-Texture7-8K.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  mix-blend-mode: multiply;
-  z-index: 1;
-  pointer-events: none;
+  display: none;
 }
 
 ul.jumble {
@@ -388,13 +400,16 @@ ul.jumble {
     font-size: 35px;
   }
   strong {
-    background: var(--green);
+    background: var(--ink);
     text-shadow: none;
     -webkit-text-stroke: 0;
-    color: black;
+    color: var(--paper-2);
+    font-family: var(--serif-text);
     text-transform: uppercase;
-    padding: 5px 10px;
-    border-radius: 5px;
+    letter-spacing: 0.08em;
+    font-size: 0.8em;
+    padding: 6px 14px;
+    border-radius: 2px;
     margin-bottom: 15px;
     display: block;
     width: fit-content;

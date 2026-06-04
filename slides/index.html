@@ -18,6 +18,7 @@
         <h1 style="font-size: 140px">Agentic Interfaces</h1>
         <p>Tools, Skills, Generative UI and WebMCP</p>
         <p>Wes Bos × @wesbos × wesbos.com</p>
+        <!-- TODO add syntax + sentry logo back in -->
       </article>
 
       <article>
@@ -35,11 +36,11 @@
         <h1 style="font-size: 150px">
           Do we even need user interfaces anymore?
         </h1>
+        <h2>yeah but no</h2>
       </article>
 
       <article>
-        <h2>Well, no</h2>
-        <p>But the way we interact with the web is certainly changing.</p>
+        <p>The way we interact with the web is certainly changing.</p>
       </article>
 
       <article>
@@ -120,6 +121,39 @@
           Here is a tool call. Instead of returning raw data, it will also
           return the UI.
         </p>
+        <pre><code>server.tool("get_weather", { city: z.string() }, async ({ city }) =&gt; {
+  const weather = await getWeather(city);
+
+  return {
+    content: [
+      {
+        type: "text",
+        text: `It is ${weather.temp}° and ${weather.condition} in ${city}.`,
+      },
+      {
+        type: "resource",
+        resource: {
+          uri: "ui://weather-card",
+          mimeType: "text/x-react",
+          text: `
+            export default function WeatherCard({ data }) {
+              return &lt;Card title={data.city}&gt;
+                &lt;strong&gt;{data.temp}°&lt;/strong&gt;
+                &lt;p&gt;{data.condition}&lt;/p&gt;
+              &lt;/Card&gt;;
+            }
+          `,
+        },
+      },
+    ],
+    structuredContent: weather,
+  };
+});</code></pre>
+
+        <p>
+          We very quickly realize that rigid, limited UIs just provide a watered
+          down experience. No one wants that.
+        </p>
       </article>
 
       <article>
@@ -129,32 +163,107 @@
           out which ones to use. Return a JSON spec, reconcile against
           components. Implement in web, native, whatever.
         </p>
+        <div class="project-options">
+          <button class="pill">A2UI</button>
+          <button class="pill">Open-JSON-UI</button>
+          <button class="pill">json-render</button>
+          <button class="pill">OpenUI</button>
+        </div>
       </article>
 
       <article>
-        <h2 style="font-size: 100px">3. Fully Generative UI</h2>
-        <p>Let the AI just generate it all. Give it a place to run code.</p>
+        <h2 style="font-size: 78px">Declarative UI Flow</h2>
+        <div class="declarative-flow">
+          <div class="flow-step">
+            <strong>1</strong>
+            <h3>Component Library</h3>
+            <div class="component-shelf">
+              <span>Card</span>
+              <span>Button</span>
+              <span>Input</span>
+              <span>Link</span>
+            </div>
+          </div>
+          <div class="flow-step">
+            <strong>2</strong>
+            <h3>Prompt LLM</h3>
+            <div class="chat-card">
+              <p>I need to reschedule my flight.</p>
+            </div>
+          </div>
+          <div class="flow-step">
+            <strong>3</strong>
+            <h3>JSON Spec</h3>
+            <pre><code>{
+  "type": "FlightCard",
+  "actions": ["change", "confirm"]
+}</code></pre>
+          </div>
+          <div class="flow-step">
+            <strong>4</strong>
+            <h3>Rendered UI</h3>
+            <div class="flight-card">
+              <small>Flight AC842</small>
+              <b>Reschedule</b>
+              <button>Fri 9:30 AM</button>
+              <button>Sat 2:15 PM</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <h2 style="font-size: 100px">3. CODE MODE!</h2>
+        <p>
+          Fully Generative UI. Let the AI just generate it all. Give it a place
+          to run code.
+        </p>
+      </article>
+
+      <article>
+        <video
+          src="/videos/grocery-simple-example.mp4"
+          autoplay
+          muted
+          loop
+        ></video>
       </article>
 
       <article>
         <h2>Demo of MCP Apps</h2>
+        <p>Note that this ins't about MCP. It's the ideas.</p>
+      </article>
+
+      <article>
+        <video
+          src="/videos/walmart-list-components.mp4"
+          autoplay
+          muted
+          loop
+        ></video>
       </article>
 
       <article>
         <h2 style="font-size: 80px">Code Mode!</h2>
         <p>
           We're seeing this with "Code Mode" right now. Instead of only giving
-          the agent tools, what if we also gave it a spot where it could just
-          run any code?
+          the agent tools, and known components, what if we also gave it a spot
+          where it could just run any code? What if instead of just returning a
+          JSON spec, it could just generate the code itself?
         </p>
       </article>
 
       <article>
-        <h2>Demo of Code Mode</h2>
+        <video src="/videos/code-mode.mp4" autoplay muted loop></video>
       </article>
 
       <article>
-        <h1 style="font-size: 150px">This isn't just about chat</h1>
+        <h1 style="font-size: 150px">A few things about that</h1>
+        <ul class="build">
+          <li>There is likely a middle ground between two two</li>
+          <li>This isn't about MCP</li>
+          <li>This isn't just about chat</li>
+        </ul>
       </article>
 
       <!-- <article>
@@ -162,12 +271,16 @@
       </article> -->
 
       <article>
-        <h2 style="font-size: 90px">Most interfaces just suck</h2>
+        <h2 style="font-size: 90px">Current MCP interfaces suck</h2>
         <video src="/videos/loblaws.mp4" autoplay muted loop></video>
       </article>
 
       <article>
-        <h2>Demo of Starbuck's</h2>
+        <h2>and and slower than just using the UI</h2>
+        <img
+          src="./ss/starbucks-chatgpt-order-flow.png"
+          alt="Tweet comparing Starbucks app ordering speed to ChatGPT ordering speed"
+        />
       </article>
 
       <article>
@@ -227,10 +340,7 @@
         <h2 style="font-size: 80px">
           Why does TikTok know me better than my smart home?
         </h2>
-        <!-- <p>
-          TikTok knows I like rope swing fails on Friday nights, but I need to
-          spend hours categorizing 67 light bulbs and switches in my house?
-        </p> -->
+        <p>Agentic interfaces are context aware and reactive.</p>
       </article>
 
       <article>
@@ -263,13 +373,30 @@
       <!-- <article>
         <p>Displaying UI → Using your app</p>
       </article> -->
+      <!--
+
+      This things me to my next point.
+      -->
+      <article>
+        <p>
+          Now you may be looking at these examples thinking that this experience
+          sucks
+        </p>
+        <p>And I kinda agree..</p>
+      </article>
 
       <article>
         <h2>WebMCP</h2>
+        <h1 style="font-size: 150px">Clicks n' Clankers</h1>
         <p>
           You expose your existing website functionality using the existing
           semantics of the web — declarative HTML API and imperative JS API.
         </p>
+      </article>
+
+      <article>
+        <!-- TODO: Add demo of WebMCP -->
+        <h2>Demo of WebMCP</h2>
       </article>
 
       <article>
@@ -314,6 +441,23 @@
       </article>
 
       <article>
+        <img src="./ss/webmcp-tools-panel.png" alt="WebMCP tools panel" />
+      </article>
+
+      <article>
+        <video src="/videos/web-mcp.mp4" autoplay muted loop></video>
+      </article>
+
+      <article>
+        <video
+          src="/videos/web-mcp-with-claude.mp4"
+          autoplay
+          muted
+          loop
+        ></video>
+      </article>
+
+      <article>
         <h2 style="font-size: 80px">Why this is great</h2>
         <ul class="build">
           <li>
@@ -328,17 +472,13 @@
         </ul>
       </article>
 
-      <article>
-        <h1 style="font-size: 150px">Clicks n' Clankers</h1>
+      <!-- <article>
+
         <p>
           Have the agent do the first pass. Jump in with clicks where it
           matters.
         </p>
-      </article>
-
-      <article>
-        <h2>Demo of Web MCP</h2>
-      </article>
+      </article> -->
 
       <!--
       Removed due to time constraints
@@ -354,6 +494,11 @@
 
       <article>
         <h2 style="font-size: 80px">Things to consider</h2>
+        <p>
+          What we do know: we don't know what the future of UI Looks like. MCP
+          need work. WebMCP might just be part of the browser or OS?
+        </p>
+        <p>Don't get hung up on the tech.</p>
         <ul class="build">
           <li>Components are king</li>
           <li>Speed and consistency are a huge factor</li>
