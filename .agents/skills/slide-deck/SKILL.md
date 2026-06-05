@@ -16,8 +16,7 @@ elements in the article and it lays itself out.
 | File | What it is |
 |---|---|
 | `index.html` | The deck. One `<article>` per slide, inside `<section class="slides layout-regular template-default">`. |
-| `styles.css` | The theme + all the `:has()` auto-layouts. Imports `_deps.css`. **Edit layouts here.** |
-| `_deps.css` | Engine CSS: slide positioning, transitions, `current`/`next`/`past` classes. Rarely touched. |
+| `styles.css` | Engine CSS, theme tokens, and all the `:has()` auto-layouts. **Edit layouts here.** |
 | `slides.js` | Navigation engine (keys, touch, builds, hash). Rarely touched. |
 | `autoplay.ts` | IntersectionObserver that plays/loops `<video>`s on-screen, pauses them off-screen. |
 | `spanran-wrap.ts` | Per-letter title animation. Currently disabled (commented out in `index.html`). |
@@ -172,15 +171,12 @@ scrolls into view, pausing it when it leaves. Keep all four attributes and put t
 
 ## Theme notes
 
-- Headings use font family `swell` (falls back to `Inter`); body uses `geoform` / `geist mono`
-  (falls back to monospace). Note: there are no `@font-face` rules in `styles.css`/`_deps.css`, so
-  unless a font is installed/loaded elsewhere these fall back. The `fonts/` folder is here if you
-  want to wire up `@font-face`.
-- Headings are green (`--green: #b5ff01`) with a heavy black `-webkit-text-stroke` and a glow
-  `text-shadow`. Body text is white with a black stroke.
-- Background is a grunge texture (`images/AU-FG-Texture4-8K.jpg`) plus a `<div class="overlay">`
-  that multiplies `images/AU-FG-Texture7-8K.jpg` on top, and headings overlay `images/grunge.png`.
-  These three image files are required by `styles.css` — keep them.
+- Engine rules, fonts, theme tokens, typography, media helpers, auto-layouts, and slide
+  components all live in `styles.css`.
+- The deck uses local NDK fonts from `slides/fonts/ndk/`.
+- The current theme is dark editorial paper: `--paper`/`--paper-2` are dark, and
+  `--ink`/`--ink-soft` are light foreground colors.
+- The texture overlay is retired for this theme; `.overlay` is intentionally hidden.
 
 ## Add a new slide (recipe)
 

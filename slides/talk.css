@@ -41,7 +41,7 @@ article:has(> .orbit) {
   padding: 14px 24px;
   border-radius: 2px;
   border: 1px solid var(--ink);
-  box-shadow: 4px 4px 0 rgba(26, 23, 20, 0.12);
+  box-shadow: 4px 4px 0 rgba(246, 241, 231, 0.12);
 }
 
 article:has(> .scatter) {
@@ -65,7 +65,7 @@ article:has(> .scatter) {
   border: 1px solid var(--ink);
   padding: 8px;
   border-radius: 2px;
-  box-shadow: 6px 6px 0 rgba(26, 23, 20, 0.12);
+  box-shadow: 6px 6px 0 rgba(246, 241, 231, 0.12);
 }
 
 .scatter img:nth-child(1) {
@@ -108,7 +108,7 @@ article pre {
   overflow-x: auto;
   max-height: 80%;
   text-align: left;
-  box-shadow: 6px 6px 0 rgba(26, 23, 20, 0.1);
+  box-shadow: 6px 6px 0 rgba(246, 241, 231, 0.1);
 }
 
 article pre code {
@@ -128,32 +128,68 @@ article pre code {
 }
 
 article pre code .kw {
-  color: #9c2f2f;
+  color: #f08a8a;
 }
 
 article pre code .str {
-  color: #5b6e2f;
+  color: #b8d982;
 }
 
 article pre code .fn {
-  color: #2f5e8c;
+  color: #8fc7ff;
 }
 
 article pre code .cm {
-  color: #9a9286;
+  color: #b8aa99;
   font-style: italic;
 }
 
 article pre code .tag {
-  color: #9c2f2f;
+  color: #f08a8a;
 }
 
 article pre code .attr {
-  color: #946011;
+  color: #f0c36a;
 }
 
 article pre code .val {
-  color: #5b6e2f;
+  color: #b8d982;
+}
+
+article pre code.hljs {
+  background: none;
+  color: var(--ink);
+}
+
+article pre code .hljs-comment {
+  color: #b8aa99;
+  font-style: italic;
+}
+
+article pre code .hljs-keyword,
+article pre code .hljs-literal,
+article pre code .hljs-meta,
+article pre code .hljs-name {
+  color: #f08a8a;
+}
+
+article pre code .hljs-attr,
+article pre code .hljs-attribute,
+article pre code .hljs-property,
+article pre code .hljs-variable {
+  color: #f0c36a;
+}
+
+article pre code .hljs-string,
+article pre code .hljs-number,
+article pre code .hljs-title,
+article pre code .hljs-tag {
+  color: #b8d982;
+}
+
+article pre code .hljs-built_in,
+article pre code .hljs-function {
+  color: #8fc7ff;
 }
 
 .project-options {
@@ -171,7 +207,7 @@ article pre code .val {
   padding: 14px 24px;
   font-family: var(--mono);
   font-size: 28px;
-  box-shadow: 5px 5px 0 rgba(26, 23, 20, 0.12);
+  box-shadow: 5px 5px 0 rgba(246, 241, 231, 0.12);
 }
 
 article:has(> :is(.controlled-flow, .declarative-flow)) {
@@ -200,7 +236,7 @@ article:has(> :is(.controlled-flow, .declarative-flow)) {
   border: 2px solid var(--ink);
   border-radius: 8px;
   padding: 68px 24px 24px;
-  box-shadow: 8px 8px 0 rgba(26, 23, 20, 0.12);
+  box-shadow: 8px 8px 0 rgba(246, 241, 231, 0.12);
 }
 
 .flow-step:not(:last-child)::after {
