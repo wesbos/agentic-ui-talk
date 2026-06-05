@@ -174,12 +174,13 @@ article pre code .val {
   box-shadow: 5px 5px 0 rgba(26, 23, 20, 0.12);
 }
 
-article:has(> .declarative-flow) {
+article:has(> :is(.controlled-flow, .declarative-flow)) {
   grid-template-rows: auto 1fr;
   gap: 28px;
   align-content: center;
 }
 
+.controlled-flow,
 .declarative-flow {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -321,6 +322,46 @@ article:has(> .declarative-flow) {
 
 .flight-card button {
   color: var(--ink);
+}
+
+.weather-card {
+  align-self: center;
+  display: grid;
+  gap: 10px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: var(--paper);
+  padding: 18px;
+}
+
+.weather-card small,
+.weather-card b,
+.weather-card span,
+.weather-card em {
+  font-family: var(--mono);
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+}
+
+.weather-card small {
+  color: var(--ink-soft);
+  font-size: 15px;
+}
+
+.weather-card b {
+  font-size: 54px;
+  line-height: 1;
+}
+
+.weather-card span {
+  font-size: 20px;
+}
+
+.weather-card em {
+  border-top: 1px solid var(--rule);
+  color: var(--accent);
+  padding-top: 10px;
+  font-size: 15px;
 }
 
 article:has(> iframe:only-child) {

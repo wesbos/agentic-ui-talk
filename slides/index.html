@@ -116,44 +116,41 @@
       </article>
 
       <article>
-        <h2>1. Controlled / Static UI</h2>
-        <p>
-          Here is a tool call. Instead of returning raw data, it will also
-          return the UI.
-        </p>
-        <pre><code>server.tool("get_weather", { city: z.string() }, async ({ city }) =&gt; {
-  const weather = await getWeather(city);
-
-  return {
-    content: [
-      {
-        type: "text",
-        text: `It is ${weather.temp}° and ${weather.condition} in ${city}.`,
-      },
-      {
-        type: "resource",
-        resource: {
-          uri: "ui://weather-card",
-          mimeType: "text/x-react",
-          text: `
-            export default function WeatherCard({ data }) {
-              return &lt;Card title={data.city}&gt;
-                &lt;strong&gt;{data.temp}°&lt;/strong&gt;
-                &lt;p&gt;{data.condition}&lt;/p&gt;
-              &lt;/Card&gt;;
-            }
-          `,
-        },
-      },
-    ],
-    structuredContent: weather,
-  };
-});</code></pre>
-
-        <p>
-          We very quickly realize that rigid, limited UIs just provide a watered
-          down experience. No one wants that.
-        </p>
+        <h2 style="font-size: 78px">1. Controlled / Static UI</h2>
+        <div class="controlled-flow">
+          <div class="flow-step">
+            <strong>1</strong>
+            <h3>Tool Call</h3>
+            <pre><code>get_weather({
+  city: "Toronto"
+})</code></pre>
+          </div>
+          <div class="flow-step">
+            <strong>2</strong>
+            <h3>Server returns Data + UI</h3>
+            <pre><code>resource: {
+  uri: "ui://weather-card",
+  mimeType: "text/x-react"
+}</code></pre>
+          </div>
+          <div class="flow-step">
+            <strong>3</strong>
+            <h3>Fixed Template</h3>
+            <pre><code>&lt;WeatherCard
+  data={weather}
+/&gt;</code></pre>
+          </div>
+          <div class="flow-step">
+            <strong>4</strong>
+            <h3>Rendered UI</h3>
+            <div class="weather-card">
+              <small>Toronto Weather</small>
+              <b>22°</b>
+              <span>Partly Cloudy</span>
+              <em>No agent choice</em>
+            </div>
+          </div>
+        </div>
       </article>
 
       <article>
@@ -219,6 +216,10 @@
           to run code.
         </p>
       </article>
+      <!--
+      <article>
+        <h2>Grocery App</h2>
+      </article> -->
 
       <article>
         <video
@@ -230,37 +231,42 @@
       </article>
 
       <article>
-        <h2>Demo of MCP Apps</h2>
-        <p>Note that this ins't about MCP. It's the ideas.</p>
-      </article>
-
-      <article>
         <video
           src="/videos/walmart-list-components.mp4"
           autoplay
           muted
           loop
         ></video>
+        <!-- SPeaker Notes:
+        Now instead of the MCP just returning data, it returns componets that can be rendered and interacted with. Right now this is primarily done inline, but could be done as fullsreen, sidebar, pip, etc...
+        -->
       </article>
 
       <article>
         <h2 style="font-size: 80px">Code Mode!</h2>
         <p>
-          We're seeing this with "Code Mode" right now. Instead of only giving
-          the agent tools, and known components, what if we also gave it a spot
-          where it could just run any code? What if instead of just returning a
-          JSON spec, it could just generate the code itself?
+          Yes, LLMS are good at returning tool calls and JSON specs of UI, but
+          you know what they are REALLY good at? Writing code!
+        </p>
+        <p>
+          Instead of only giving the agent tools, and known components, what if
+          we also gave it a spot where it could just run any code? What if
+          instead of just returning a JSON spec, it could just generate the code
+          itself?
         </p>
       </article>
 
       <article>
-        <video src="/videos/code-mode.mp4" autoplay muted loop></video>
+        <video src="/videos/code-mode-longer.mp4" autoplay muted loop></video>
       </article>
 
       <article>
         <h1 style="font-size: 150px">A few things about that</h1>
         <ul class="build">
-          <li>There is likely a middle ground between two two</li>
+          <li>
+            There is likely a middle ground between dynamic components and fully
+            generative UI
+          </li>
           <li>This isn't about MCP</li>
           <li>This isn't just about chat</li>
         </ul>
@@ -337,9 +343,7 @@
       </article>
 
       <article>
-        <h2 style="font-size: 80px">
-          Why does TikTok know me better than my smart home?
-        </h2>
+        <h1>Why does TikTok know me better than my smart home?</h1>
         <p>Agentic interfaces are context aware and reactive.</p>
       </article>
 
@@ -386,7 +390,7 @@
       </article>
 
       <article>
-        <h2>WebMCP</h2>
+        <h2><strike>WebMCP</strike></h2>
         <h1 style="font-size: 150px">Clicks n' Clankers</h1>
         <p>
           You expose your existing website functionality using the existing
@@ -401,42 +405,42 @@
 
       <article>
         <h2 style="font-size: 80px">Declarative — HTML</h2>
-        <pre><code>&lt;<span class="tag">form</span>
-  <span class="attr">toolname</span>=<span class="val">"add_item"</span>
-  <span class="attr">tooldescription</span>=<span class="val">"Add a grocery item to a store."</span>
-  <span class="attr">toolautosubmit</span>=<span class="val">""</span>
+        <pre><code>&lt;form
+  toolname="add_item"
+  tooldescription="Add a grocery item to a store."
+  toolautosubmit=""
 &gt;
-  &lt;<span class="tag">select</span> <span class="attr">name</span>=<span class="val">"store_id"</span>
-    <span class="attr">toolparamdescription</span>=<span class="val">"Target store"</span>&gt;
-  &lt;/<span class="tag">select</span>&gt;
-  &lt;<span class="tag">input</span> <span class="attr">name</span>=<span class="val">"item_name"</span>
-    <span class="attr">toolparamdescription</span>=<span class="val">"Item name"</span> <span class="attr">required</span> /&gt;
-  &lt;<span class="tag">button</span> <span class="attr">type</span>=<span class="val">"submit"</span>&gt;Add&lt;/<span class="tag">button</span>&gt;
-&lt;/<span class="tag">form</span>&gt;</code></pre>
+  &lt;select name="store_id"
+    toolparamdescription="Target store"&gt;
+  &lt;/select&gt;
+  &lt;input name="item_name"
+    toolparamdescription="Item name" required /&gt;
+  &lt;button type="submit"&gt;Add&lt;/button&gt;
+&lt;/form&gt;</code></pre>
       </article>
 
       <article>
         <h2 style="font-size: 80px">Imperative — JS</h2>
-        <pre><code><span class="fn">navigator.modelContext</span>.<span class="fn">registerTool</span>(
+        <pre><code>navigator.modelContext.registerTool(
   {
-    <span class="attr">name</span>: <span class="str">"get_stores"</span>,
-    <span class="attr">description</span>: <span class="str">"List stores and item counts."</span>,
-    <span class="attr">inputSchema</span>: { <span class="attr">type</span>: <span class="str">"object"</span>, <span class="attr">properties</span>: {} },
-    <span class="attr">annotations</span>: { <span class="attr">readOnlyHint</span>: <span class="kw">true</span> },
-    <span class="fn">execute</span>: () =&gt; <span class="fn">JSON.stringify</span>(stores, <span class="kw">null</span>, 2),
+    name: "get_stores",
+    description: "List stores and item counts.",
+    inputSchema: { type: "object", properties: {} },
+    annotations: { readOnlyHint: true },
+    execute: () =&gt; JSON.stringify(stores, null, 2),
   },
-  { <span class="attr">signal</span>: controller.signal },
+  { signal: controller.signal },
 );</code></pre>
       </article>
 
       <article>
         <h2 style="font-size: 80px">Using it</h2>
-        <pre><code><span class="cm">// Get a list of tools</span>
-<span class="kw">const</span> tools = <span class="fn">navigator.modelContextTesting</span>?.<span class="fn">listTools</span>();
+        <pre><code>// Get a list of tools
+const tools = navigator.modelContextTesting?.listTools();
 
-<span class="cm">// Run a tool (usually run by an agent)</span>
-<span class="kw">await</span> <span class="fn">navigator.modelContextTesting</span>?.<span class="fn">executeTool</span>(
-  <span class="str">"get_stores"</span>, <span class="str">"{}"</span>
+// Run a tool (usually run by an agent)
+await navigator.modelContextTesting?.executeTool(
+  "get_stores", "{}"
 );</code></pre>
       </article>
 
@@ -461,6 +465,10 @@
         <h2 style="font-size: 80px">Why this is great</h2>
         <ul class="build">
           <li>
+            WAY faster than existing solutions that use SCreenshots or DOM
+            parsing
+          </li>
+          <li>
             Uses the browser's built-in security model. Auth isn't an issue.
           </li>
           <li>
@@ -468,7 +476,7 @@
             plugin.
           </li>
           <li>User is in control</li>
-          <li>Not limited by sandboxing security model</li>
+          <li>Not limited by sandboxing inside a chat window</li>
         </ul>
       </article>
 
@@ -498,23 +506,14 @@
           What we do know: we don't know what the future of UI Looks like. MCP
           need work. WebMCP might just be part of the browser or OS?
         </p>
-        <p>Don't get hung up on the tech.</p>
         <ul class="build">
           <li>Components are king</li>
           <li>Speed and consistency are a huge factor</li>
           <li>Balance of low power and full control is a constant battle</li>
           <li>Abuse — we're fighting bots, but also giving them the keys</li>
           <li>Brand consistency and UX</li>
+          <li>Player buy-in. Will airlines want this?</li>
         </ul>
-      </article>
-
-      <article>
-        <h2 style="font-size: 80px">The power battle</h2>
-        <p>
-          Will the airline simply want to be distilled down into a utility? Seat
-          selection upsells, scare-tactics for insurance. As a user I want this,
-          but I doubt businesses will totally buy in.
-        </p>
       </article>
 
       <!-- <article>
